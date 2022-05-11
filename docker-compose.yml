@@ -1,0 +1,41 @@
+version: '3.0'
+
+services:
+  nginx:
+    image: nginx:latest
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "6666:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./www:/www
+  php:
+    image: php:fpm
+    networks:
+      - backend
+    volumes:
+      - ./www:/www
+  mysql:
+    image: mariadb:latest
+    networks:
+      backend:
+        aliases:
+          - db
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+  phpmyadmin:
+    image: phpmyadmin:latest
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "6001:80"
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  www:
