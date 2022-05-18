@@ -13,6 +13,7 @@ services:
       - ./www:/www
     deploy:
       mode: replicated
+      replicas: 2
       restart_policy:
         condition: any
   php:
@@ -23,6 +24,7 @@ services:
       - ./www:/www
     deploy:
       mode: replicated
+      replicas: 2
       restart_policy:
         condition: any
   mysql:
@@ -49,6 +51,7 @@ services:
       - "6001:80"
     deploy:
       mode: replicated
+      replicas: 1
       restart_policy:
         condition: any
 
